@@ -1,16 +1,11 @@
-import React from "react";
+import { Project } from "@/types";
 
-export interface ProjectCardProps {
-  thumbnail: string;
-  id: string;
-  title: string;
-  shortDescription: string;
-}
+type ProjectCardProps = Pick<Project, "thumbnail" | "id" | "title" | "shortDescription">;
 
 export const ProjectCard = ({ thumbnail, id, title, shortDescription }: ProjectCardProps) => {
   return (
     <a
-      href={`http://localhost:3000/${id}`}
+      href={`http://localhost:3000/projects/${id}`}
       className="group flex flex-col w-64 rounded-lg border border-transparent p-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 overflow-hidden"
       target="_blank"
       rel="noopener noreferrer"

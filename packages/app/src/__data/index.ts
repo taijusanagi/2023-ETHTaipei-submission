@@ -1,4 +1,6 @@
-export const projects = [
+import { Project } from "@/types";
+
+export const projects: Project[] = [
   {
     thumbnail: "https://via.placeholder.com/400",
     banner: "https://via.placeholder.com/800x450",

@@ -1,12 +1,18 @@
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 
 import { ProjectCard } from "@/components/ProjectCard";
-import { projects } from "@/data";
+import { projects } from "@/__data";
+import { Project } from "@/types";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+interface HomePageProps {
+  projects: Project[];
+}
+
+const HomePage = ({ projects }: HomePageProps) => {
   return (
     <main className={`flex min-h-screen flex-col items-center p-8 ${inter.className}`}>
       <header className="w-full py-2 flex justify-between items-center">
@@ -24,12 +30,20 @@ export default function Home() {
         />
       </div>
       <div className="mb-32 grid text-center grid-cols-2 lg:mb-0 lg:grid-cols-4 lg:text-left">
-        {projects.map(({ thumbnail, id, title, shortDescription }) => {
-          return (
-            <ProjectCard key={id} thumbnail={thumbnail} id={id} title={title} shortDescription={shortDescription} />
-          );
+        {projects.map((project) => {
+          return <ProjectCard key={project.id} {...project} />;
         })}
       </div>
     </main>
   );
-}
+};
+
+export default HomePage;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {
+      projects,
+    },
+  };
+};
