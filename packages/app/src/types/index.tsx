@@ -1,4 +1,4 @@
-export interface Project {
+export interface Event {
   thumbnail: string;
   banner: string;
   id: string;

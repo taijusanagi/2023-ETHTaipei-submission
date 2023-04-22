@@ -1,12 +1,12 @@
-import { Project } from "@/types";
+import { Event } from "@/types";
 import Link from "next/link";
 
-type ProjectCardProps = Pick<Project, "thumbnail" | "id" | "title" | "shortDescription">;
+type EventCardProps = Pick<Event, "thumbnail" | "id" | "title" | "shortDescription">;
 
-export const ProjectCard = ({ thumbnail, id, title, shortDescription }: ProjectCardProps) => {
+export const EventCard = ({ thumbnail, id, title, shortDescription }: EventCardProps) => {
   return (
     <Link
-      href={`/projects/${id}`}
+      href={`/events/${id}`}
       className="group flex flex-col w-64 rounded-lg border border-transparent p-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 overflow-hidden"
     >
       <div className="w-full h-40 overflow-hidden">

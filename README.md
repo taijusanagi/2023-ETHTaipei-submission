@@ -1,14 +1,14 @@
-# 2023-ETHTaipei-submission
+# Verified Anonymous
 
-This is 2023 ETHTaipei submission repository
+Verified reviews, preserved privacy.
 
-A key image goes here.
+![banner](./packages/app/public/banner.png)
 
 ## Submission
 
 ### Live App
 
-https://2023-eth-taipei-submission.vercel.app/
+https://verified-anonymous.vercel.app/
 
 ### Demo Video
 

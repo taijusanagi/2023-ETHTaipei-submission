@@ -1,8 +1,8 @@
-import { Project } from "@/types";
+import { Event } from "@/types";
 
-type ProjectDetailProps = Pick<Project, "banner" | "title" | "shortDescription" | "longDescription">;
+type ProjectDetailProps = Pick<Event, "banner" | "title" | "shortDescription" | "longDescription">;
 
-export const ProjectDetail = ({ banner, title, shortDescription, longDescription }: ProjectDetailProps) => {
+export const EventDetail = ({ banner, title, shortDescription, longDescription }: ProjectDetailProps) => {
   return (
     <div className="project-detail">
       <div className="banner w-screen h-64 overflow-hidden mb-4">

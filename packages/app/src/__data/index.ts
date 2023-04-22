@@ -1,6 +1,6 @@
-import { Project } from "@/types";
+import { Event } from "@/types";
 
-export const projects: Project[] = [
+export const events: Event[] = [
   {
     thumbnail: "https://via.placeholder.com/400",
     banner: "https://via.placeholder.com/800x450",
@@ -17,7 +17,7 @@ export const projects: Project[] = [
     title: "ETHTaipei",
     shortDescription: "Dive into the world of Ethereum in Taipei.",
     longDescription:
-      "ETHTaipei is an immersive hackathon that brings together Ethereum enthusiasts, developers, and industry leaders. Participants will work together to build cutting-edge decentralized applications while learning from experienced mentors. Don't miss this opportunity to be a part of the growing Ethereum community in Taipei!",
+      "verified-anonymous is an immersive hackathon that brings together Ethereum enthusiasts, developers, and industry leaders. Participants will work together to build cutting-edge decentralized applications while learning from experienced mentors. Don't miss this opportunity to be a part of the growing Ethereum community in Taipei!",
   },
   {
     thumbnail: "https://via.placeholder.com/400",
