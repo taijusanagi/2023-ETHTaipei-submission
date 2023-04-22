@@ -1,6 +1,11 @@
 import { Layout } from "@/components/Layout";
 
+import VerifiedAnonymousJson from "../../../../contracts/build/contracts/contracts/VerifiedAnonymous.sol/VerifiedAnonymous.json";
+import { useSigner } from "wagmi";
+
 const RegisterEventPage = () => {
+  const { data: signer } = useSigner();
+
   return (
     <Layout>
       <div className="max-w-2xl mx-auto p-4">
@@ -65,7 +70,10 @@ const RegisterEventPage = () => {
           <div className="mt-4">
             <button
               type="button"
-              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full"
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl"
+              onClick={() => {
+                console.log("ok");
+              }}
             >
               Create Project
             </button>

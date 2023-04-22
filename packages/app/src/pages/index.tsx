@@ -25,7 +25,7 @@ const HomePage = ({ events }: HomePageProps) => {
       </div>
       <div className="fixed bottom-0 right-0 p-4">
         <Link href="events/register">
-          <button className="bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-4 rounded-full">
+          <button className="bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-4 rounded-xl">
             Register Event
           </button>
         </Link>
