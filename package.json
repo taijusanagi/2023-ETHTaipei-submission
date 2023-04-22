@@ -7,7 +7,15 @@
     "packages/**"
   ],
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build": "run-s build:contracts build:app",
+    "build:app": "yarn workspace @ethtaipei/app build",
+    "build:contracts": "yarn workspace @ethtaipei/contracts compile",
+    "test": "run-p test:*",
+    "test:contracts": "yarn workspace @ethtaipei/contracts test",
+    "lint": "run-p lint:*",
+    "lint:app": "yarn workspace @ethtaipei/app lint",
+    "lint:contracts": "yarn workspace @ethtaipei/contracts lint"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
