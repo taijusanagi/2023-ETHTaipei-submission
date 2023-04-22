@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,9 +15,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <Link href="/">
           <Image className="w-auto" src="/icon.png" alt="logo" width={32} height={32} priority />
         </Link>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full">
-          Connect Wallet
-        </button>
+        <ConnectButton />
       </header>
       <div className="">{children}</div>
       <footer className="h-8" />

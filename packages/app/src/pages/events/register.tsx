@@ -11,7 +11,7 @@ const RegisterEventPage = () => {
             <input
               type="text"
               className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 block w-full sm:text-sm border rounded-md py-3 px-2"
-              placeholder="0x..."
+              placeholder="123790"
             />
           </div>
           <div>

@@ -3,7 +3,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { events } from "@/__data";
 import { EventDetail } from "@/components/EventDetail";
 import { Layout } from "@/components/Layout";
-import { generateGravatarUrl, truncateString } from "@/libs/utils";
+import { generateGravatarUrl, truncateString } from "@/lib/utils";
 interface EventDetailPageProps {
   event: Event;
 }
