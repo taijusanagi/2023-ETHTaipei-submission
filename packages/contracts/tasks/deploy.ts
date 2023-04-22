@@ -21,8 +21,8 @@ task("deploy", "Deploy a Feedback contract")
       }
     }
 
-    const VerifiableAnonymous = await ethers.getContractFactory("VerifiableAnonymous");
-    const feedbackContract = await VerifiableAnonymous.deploy(semaphoreAddress, xpoapAddress);
+    const VerifiedAnonymous = await ethers.getContractFactory("VerifiedAnonymous");
+    const feedbackContract = await VerifiedAnonymous.deploy(semaphoreAddress, xpoapAddress);
 
     await feedbackContract.deployed();
 

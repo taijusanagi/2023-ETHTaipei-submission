@@ -6,13 +6,13 @@ import { formatBytes32String } from "ethers/lib/utils";
 import { run, ethers } from "hardhat";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: typechain folder will be generated after contracts compilation
-import { VerifiableAnonymous, MockXPOAP } from "../build/typechain";
+import { VerifiedAnonymous, MockXPOAP } from "../build/typechain";
 import { config } from "../package.json";
 import { Signer } from "ethers";
 
-describe("VerifiableAnonymous", () => {
+describe("VerifiedAnonymous", () => {
   let xpoapContract: MockXPOAP;
-  let vaContract: VerifiableAnonymous;
+  let vaContract: VerifiedAnonymous;
   let semaphoreContract: string;
   let withXPOAPSigner: Signer;
   let withoutXPOAPSigner: Signer;
@@ -36,8 +36,8 @@ describe("VerifiableAnonymous", () => {
     const MockXPOAP = await ethers.getContractFactory("MockXPOAP");
     xpoapContract = await MockXPOAP.deploy();
 
-    const VerifiableAnonymous = await ethers.getContractFactory("VerifiableAnonymous");
-    vaContract = await VerifiableAnonymous.deploy(semaphore.address, xpoapContract.address);
+    const VerifiedAnonymous = await ethers.getContractFactory("VerifiedAnonymous");
+    vaContract = await VerifiedAnonymous.deploy(semaphore.address, xpoapContract.address);
 
     await vaContract.createEvent(groupId, metadata);
 
@@ -65,7 +65,7 @@ describe("VerifiableAnonymous", () => {
       const transaction = vaContract
         .connect(withoutXPOAPSigner)
         .verifyAndJoinEvent(notRegisteredUser.commitment, validTokenId);
-      await expect(transaction).to.revertedWith("VerifiableAnonymous: msg sender is invalid");
+      await expect(transaction).to.revertedWith("VerifiedAnonymous: msg sender is invalid");
     });
   });
 
