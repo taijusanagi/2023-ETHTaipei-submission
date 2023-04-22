@@ -2,13 +2,18 @@ import { Project } from "@/types";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { projects } from "@/__data";
 import { ProjectDetail } from "@/components/ProjectDetail";
+import { Layout } from "@/components/Layout";
 
 interface ProjectDetailPageProps {
   project: Project;
 }
 
 const ProjectDetailPage = ({ project }: ProjectDetailPageProps) => {
-  return <ProjectDetail {...project} />;
+  return (
+    <Layout>
+      <ProjectDetail {...project} />
+    </Layout>
+  );
 };
 
 export default ProjectDetailPage;
