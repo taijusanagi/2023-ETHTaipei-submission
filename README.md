@@ -37,11 +37,12 @@ This innovative approach offers the following key benefits:
 
 ### How it works
 
-- The POAP event ID is matched with the Semaphore group ID.
-- All information is saved and checked in a smart contract on the Gnosis Chain.
-- The event organizer sets up a group in the Semaphore smart contract.
-- Reviewers can join as members only if they are verified as POAP holders for the specific event.
-- Reviewers can submit anonymous feedback using the Semaphore proof system.
+![how-it-works](./docs/how-it-works.png)
+
+- Event organizers can now register their events using a POAP
+- Users can authenticate their attendance with POAP and submit privacy-protected reviews using the Semaphore
+- Only targeted POAP users can join the group
+- The signal is visible to everyone, but the actual sender remains hidden with Semaphore
 
 ## Refecence
 
