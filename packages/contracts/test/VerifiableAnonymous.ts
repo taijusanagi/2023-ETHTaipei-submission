@@ -21,6 +21,7 @@ describe("VerifiableAnonymous", () => {
   const invalidTokenId = "9";
   const groupId = "42";
   const group = new Group(groupId);
+  const metadata = "";
 
   let registeredUser: Identity;
   let notRegisteredUser: Identity;
@@ -38,7 +39,7 @@ describe("VerifiableAnonymous", () => {
     const VerifiableAnonymous = await ethers.getContractFactory("VerifiableAnonymous");
     vaContract = await VerifiableAnonymous.deploy(semaphore.address, xpoapContract.address);
 
-    await vaContract.createEvent(groupId);
+    await vaContract.createEvent(groupId, metadata);
 
     registeredUser = new Identity();
     notRegisteredUser = new Identity();

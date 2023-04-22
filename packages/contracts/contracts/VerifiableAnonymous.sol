@@ -8,15 +8,18 @@ contract VerifiableAnonymous {
     ISemaphore public semaphore;
     IXPOAP public xpoap;
 
+    mapping(uint256 => string) public groupIdToMetadata;
+
     constructor(address semaphoreAddress, address xpoapAddress) {
         semaphore = ISemaphore(semaphoreAddress);
         xpoap = IXPOAP(xpoapAddress);
     }
 
-    function createEvent(uint256 groupId) external {
+    function createEvent(uint256 groupId, string memory metadata) external {
         // There is no way to check if a group ID is a valid event ID in POAP.
         require(groupId > 0, "VerifiableAnonymous: group id is invalid");
         semaphore.createGroup(groupId, 20, address(this));
+        groupIdToMetadata[groupId] = metadata;
     }
 
     function verifyAndJoinEvent(uint256 identityCommitment, uint256 tokenId) external {
