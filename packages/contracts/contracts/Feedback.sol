@@ -1,3 +1,5 @@
+// This code was copied from a template and is being kept for testing purposes.
+
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 

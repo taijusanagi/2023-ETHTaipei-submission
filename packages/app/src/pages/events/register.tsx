@@ -7,7 +7,7 @@ const RegisterEventPage = () => {
         <h1 className="text-3xl font-bold leading-tight text-gray-900">Register a New Event</h1>
         <form className="py-8 grid grid-cols-1 gap-4 sm:min-w-[30rem]">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">POAP Associated with the Event</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">POAP ID Associated with the Event</label>
             <input
               type="text"
               className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 block w-full sm:text-sm border rounded-md py-3 px-2"
