@@ -15,7 +15,7 @@
       "outputs": [
         {
           "internalType": "address",
-          "name": "owner",
+          "name": "ownerAddress",
           "type": "address"
         }
       ],
@@ -34,7 +34,7 @@
       "outputs": [
         {
           "internalType": "uint256",
-          "name": "",
+          "name": "eventId",
           "type": "uint256"
         }
       ],

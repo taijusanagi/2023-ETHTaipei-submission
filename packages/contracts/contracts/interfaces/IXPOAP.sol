@@ -5,6 +5,6 @@
 pragma solidity ^0.8.4;
 
 interface IXPOAP {
-    function ownerOf(uint256 tokenId) external view returns (address owner);
-    function tokenEvent(uint256 tokenId) external view returns (uint256);
+    function ownerOf(uint256 tokenId) external view returns (address ownerAddress);
+    function tokenEvent(uint256 tokenId) external view returns (uint256 eventId);
 }
