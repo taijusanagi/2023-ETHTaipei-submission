@@ -18,7 +18,6 @@ describe("VerifiedAnonymous", () => {
   let withoutXPOAPSigner: Signer;
 
   const validTokenId = "1";
-  const invalidTokenId = "9";
   const groupId = "42";
   const group = new Group(groupId);
   const metadata = "";
