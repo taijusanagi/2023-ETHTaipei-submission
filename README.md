@@ -20,7 +20,8 @@ TBD
 
 ## Description
 
-A 2-3 lines of short description goes here.
+Verified Anonymous verifies user identities with POAP and preserves their privacy with Semaphore.
+Reviewers can stay anonymous while still being verified, ensuring authentic and trustworthy reviews.
 
 ### Benefit
 
