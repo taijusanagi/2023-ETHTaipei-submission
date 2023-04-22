@@ -24,7 +24,7 @@ Verified Anonymous provides verification with POAP and protects user privacy wit
 
 ### Benefit
 
-This innovative approach offers the following key benefits:
+This approach offers the following key benefits:
 
 #### Reviewers
 
@@ -39,10 +39,8 @@ This innovative approach offers the following key benefits:
 
 ![how-it-works](./docs/how-it-works.png)
 
-- Event organizers can now register their events using a POAP
-- Users can authenticate their attendance with POAP and submit privacy-protected reviews using the Semaphore
 - Only targeted POAP users can join the group
-- The signal is visible to everyone, but the actual sender remains hidden with Semaphore
+- The signal is public, but the actual sender remains hidden with Semaphore.
 
 ## Refecence
 
