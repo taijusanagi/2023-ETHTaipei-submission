@@ -8,31 +8,33 @@ contract VerifiableAnonymous {
     ISemaphore public semaphore;
     IXPOAP public xpoap;
 
+    mapping (uint256 => bool) public isGroupCreated;
+
     constructor(address semaphoreAddress, address xpoapAddress) {
         semaphore = ISemaphore(semaphoreAddress);
         xpoap = IXPOAP(xpoapAddress);
     }
 
-    function createGroup(uint256 eventId) external {
-        // I need to check what merkleTreeDepth is.
-        semaphore.createGroup(eventId, 20, address(this));
+    function createEvent(uint256 groupId) external {
+        require(groupId > 0, "VerifiableAnonymous: group id is invalid");
+        semaphore.createGroup(groupId, 20, address(this));
+        isGroupCreated[groupId] = true;
     }
 
-    function joinGroup(uint256 identityCommitment, uint256 tokenId) external {
+    function verifyAndJoinEvent(uint256 identityCommitment, uint256 tokenId) external {
         require(xpoap.ownerOf(tokenId) == msg.sender, "VerifiableAnonymous: msg sender is invalid");
-        // This on-chain verification connects a commitment to a token ID.
-        uint256 eventId = xpoap.tokenEvent(tokenId);   
-        semaphore.addMember(eventId, identityCommitment);
+        uint256 groupId = xpoap.tokenEvent(tokenId);
+        require(isGroupCreated[groupId], "VerifiableAnonymous: event id is invalid");
+        semaphore.addMember(groupId, identityCommitment);
     }
 
     function sendReview(
-        uint256 eventId,
+        uint256 groupId,
         uint256 review,
         uint256 merkleTreeRoot,
         uint256 nullifierHash,
         uint256[8] calldata proof
     ) external {
-        // I need to check what externalNullifier is.
-        semaphore.verifyProof(eventId, merkleTreeRoot, review, nullifierHash, eventId, proof);
+        semaphore.verifyProof(groupId, merkleTreeRoot, review, nullifierHash, groupId, proof);
     }
 }
