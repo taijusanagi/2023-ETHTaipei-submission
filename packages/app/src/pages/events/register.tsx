@@ -3,7 +3,7 @@ import { Layout } from "@/components/Layout";
 const RegisterEventPage = () => {
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto p-4">
+      <div className="max-w-2xl mx-auto p-4">
         <h1 className="text-3xl font-bold leading-tight text-gray-900">Register a New Event</h1>
         <form className="py-8 grid grid-cols-1 gap-4 sm:min-w-[30rem]">
           <div>
@@ -11,7 +11,7 @@ const RegisterEventPage = () => {
             <input
               type="text"
               className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 block w-full sm:text-sm border rounded-md py-3 px-2"
-              placeholder="Enter project title"
+              placeholder="0x..."
             />
           </div>
           <div>
@@ -19,7 +19,7 @@ const RegisterEventPage = () => {
             <input
               type="text"
               className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 block w-full sm:text-sm border rounded-md py-3 px-2"
-              placeholder="Enter project title"
+              placeholder="ETHTaipei"
             />
           </div>
           <div>
@@ -27,7 +27,7 @@ const RegisterEventPage = () => {
             <input
               type="text"
               className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 block w-full sm:text-sm border rounded-md py-3 px-2"
-              placeholder="Enter project title"
+              placeholder="Dive into the world of Ethereum in Taipei."
             />
           </div>
           <div>
@@ -35,7 +35,7 @@ const RegisterEventPage = () => {
             <textarea
               rows={5}
               className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 block w-full sm:text-sm border rounded-md py-3 px-2"
-              placeholder="Enter project description"
+              placeholder="ETHTaipei is an immersive hackathon that brings together Ethereum enthusiasts, developers, and industry leaders. Participants will work together to build cutting-edge decentralized applications while learning from experienced mentors. Don't miss this opportunity to be a part of the growing Ethereum community in Taipei!"
             />
           </div>
           <div>

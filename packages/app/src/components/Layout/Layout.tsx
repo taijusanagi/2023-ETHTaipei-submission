@@ -19,7 +19,7 @@ export const Layout = ({ children }: LayoutProps) => {
           Connect Wallet
         </button>
       </header>
-      {children}
+      <div className="py-8">{children}</div>
     </main>
   );
 };

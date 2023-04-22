@@ -17,7 +17,7 @@ export const events: Event[] = [
     title: "ETHTaipei",
     shortDescription: "Dive into the world of Ethereum in Taipei.",
     longDescription:
-      "verified-anonymous is an immersive hackathon that brings together Ethereum enthusiasts, developers, and industry leaders. Participants will work together to build cutting-edge decentralized applications while learning from experienced mentors. Don't miss this opportunity to be a part of the growing Ethereum community in Taipei!",
+      "ETHTaipei is an immersive hackathon that brings together Ethereum enthusiasts, developers, and industry leaders. Participants will work together to build cutting-edge decentralized applications while learning from experienced mentors. Don't miss this opportunity to be a part of the growing Ethereum community in Taipei!",
   },
   {
     thumbnail: "https://via.placeholder.com/400",
