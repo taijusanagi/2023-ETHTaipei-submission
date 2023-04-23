@@ -4,5 +4,9 @@
     "xpoap": "0x5bf5b11053e734690269C6B9D438F8C9d48F528A",
     "verifiedAnonymous": "0xab16A69A5a8c12C732e0DEFF4BE56A70bb64c926"
   },
-  "gnosis": { "semaphore": "", "xpoap": "", "verifiedAnonymous": "" }
+  "gnosis": {
+    "semaphore": "0xEEeB47597825661a2077c6280a705b90F8749078",
+    "xpoap": "0x22c1f6050e56d2876009903609a2cc3fef83b415",
+    "verifiedAnonymous": "0x23E8330bF482c894B2A257c8bB07D1d527ba5a8b"
+  }
 }

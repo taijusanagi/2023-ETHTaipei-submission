@@ -5,49 +5,14 @@ import "@typechain/hardhat";
 import { config as dotenvConfig } from "dotenv";
 import "hardhat-gas-reporter";
 import { HardhatUserConfig } from "hardhat/config";
-import { NetworksUserConfig } from "hardhat/types";
+
 import "solidity-coverage";
 import { config } from "./package.json";
 import "./tasks/deploy";
 
 dotenvConfig();
 
-function getNetworks(): NetworksUserConfig {
-  if (!process.env.INFURA_API_KEY || !process.env.ETHEREUM_PRIVATE_KEY) {
-    return {};
-  }
-
-  const accounts = [`0x${process.env.ETHEREUM_PRIVATE_KEY}`];
-  const infuraApiKey = process.env.INFURA_API_KEY;
-
-  return {
-    goerli: {
-      url: `https://goerli.infura.io/v3/${infuraApiKey}`,
-      chainId: 5,
-      accounts,
-    },
-    sepolia: {
-      url: `https://sepolia.infura.io/v3/${infuraApiKey}`,
-      chainId: 11155111,
-      accounts,
-    },
-    mumbai: {
-      url: `https://polygon-mumbai.infura.io/v3/${infuraApiKey}`,
-      chainId: 80001,
-      accounts,
-    },
-    "optimism-goerli": {
-      url: `https://optimism-goerli.infura.io/v3/${infuraApiKey}`,
-      chainId: 420,
-      accounts,
-    },
-    arbitrum: {
-      url: `https://arbitrum-mainnet.infura.io/v3/${infuraApiKey}`,
-      chainId: 42161,
-      accounts,
-    },
-  };
-}
+const accounts = [`0x${process.env.ETHEREUM_PRIVATE_KEY}`];
 
 const hardhatConfig: HardhatUserConfig = {
   solidity: config.solidity,
@@ -61,7 +26,11 @@ const hardhatConfig: HardhatUserConfig = {
     hardhat: {
       chainId: 1337,
     },
-    ...getNetworks(),
+    gnosis: {
+      url: "https://rpc.gnosischain.com",
+      chainId: 100,
+      accounts,
+    },
   },
   gasReporter: {
     currency: "USD",

@@ -46,7 +46,11 @@ This approach offers the following key benefits:
 - Only targeted POAP users can join the group
 - The signal is public, but the actual sender remains hidden with Semaphore.
 
-## Refecence
+## Team
+
+This project was developed by taijusanagi, a solo hacker who is passionate about decentralized identity.
+
+## Reference
 
 ### Deployed Contracts
 
