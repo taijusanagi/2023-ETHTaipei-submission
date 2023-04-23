@@ -60,4 +60,20 @@ https://github.com/taijusanagi/verified-anonymous/blob/main/packages/contracts/d
 
 ### Tested POAP
 
-https://poap.gallery/event/123790
+- https://poap.gallery/event/123790
+
+- https://gnosisscan.io/tx/0xd477291d00c25f124ec6365f9f7b846afaf176b1c6350685878cfaadc54bc8a9
+
+### Tx
+
+#### createEventTx
+
+https://gnosisscan.io/tx/0x92c00e4080bd5adce9819a7a6e8590d185eb464a7fd28a26e0a1b74917c537a7
+
+#### verifyAndJoinEventTx
+
+https://gnosisscan.io/tx/0xd852f6f0e3c2828947a775ae389821edb3ac45a9366220831c237b2b1ee590bd
+
+#### sendReviewTx
+
+https://gnosisscan.io/tx/0xa9e4736d003815b2c756235b6754c5639a78042741eac89d0247e2256661fef6
