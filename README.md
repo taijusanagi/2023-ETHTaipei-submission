@@ -54,6 +54,8 @@ This project was developed by taijusanagi, a solo hacker who is passionate about
 
 ### Deployed Contracts
 
+Smart contracts are deployed Gnosis mainnet to test with actual POAP
+
 https://github.com/taijusanagi/verified-anonymous/blob/main/packages/contracts/deployments.json
 
 ### Tested POAP
