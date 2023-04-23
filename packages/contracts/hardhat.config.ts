@@ -12,7 +12,10 @@ import "./tasks/deploy";
 
 dotenvConfig();
 
-const accounts = [`0x${process.env.ETHEREUM_PRIVATE_KEY}`];
+const accounts = process.env.ETHEREUM_PRIVATE_KEY
+  ? [`0x${process.env.ETHEREUM_PRIVATE_KEY}`]
+  : // default hardhat node signer key
+    ["0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"];
 
 const hardhatConfig: HardhatUserConfig = {
   solidity: config.solidity,
