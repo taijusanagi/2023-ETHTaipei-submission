@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Identity } from "@semaphore-protocol/identity";
-
+import { SemaphoreEthers } from "@semaphore-protocol/data";
 import { Event } from "@/types";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { events } from "@/__data";
@@ -8,7 +8,15 @@ import { EventDetail } from "@/components/EventDetail";
 import { Layout } from "@/components/Layout";
 import { generateGravatarUrl, truncateString } from "@/lib/utils";
 import { Modal } from "@/components/Modal";
-
+import deploymentsJson from "../../../../contracts/deployments.json";
+import { useDeployments } from "@/hooks/useDeployments";
+import { useIsConnected } from "@/hooks/useIsConnected";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import VerifiedAnonymousJson from "../../../../contracts/build/contracts/contracts/VerifiedAnonymous.sol/VerifiedAnonymous.json";
+import { ethers } from "ethers";
+import { useSigner } from "wagmi";
+import { Group } from "@semaphore-protocol/group";
+import { generateProof } from "@semaphore-protocol/proof";
 interface EventDetailPageProps {
   event: Event;
 }
@@ -22,21 +30,41 @@ const reviews = [
   },
 ];
 
+const semaphoreContract = deploymentsJson.localhost.semaphore;
+
+const wasmFilePath = "../../../../contracts/build/snark-artifacts/semaphore.wasm";
+const zkeyFilePath = "../../../../contracts/build/snark-artifacts/semaphore.zkey";
+
 const EventDetailPage = ({ event }: EventDetailPageProps) => {
+  const { openConnectModal } = useConnectModal();
+  const { isConnected } = useIsConnected();
+  const { deployments } = useDeployments();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { data: signer } = useSigner();
 
   const [modalMode, setModalMode] = useState<"createIdentity" | "joinGroup" | "sendReview">("createIdentity");
   const [identity, setIdentity] = useState<Identity>();
 
-  // const createIdentity = useCallback(async () => {
-  //   const identity = new Identity();
+  const [tokenId, setTokenId] = useState("");
+  const [review, setReview] = useState("");
+  const [anonymousLevel, setAnonymousLevel] = useState(0);
 
-  //   setIdentity(identity);
+  const semaphore = new SemaphoreEthers("http://localhost:8545", {
+    address: semaphoreContract,
+  });
 
-  //   localStorage.setItem("identity", identity.toString());
-
-  //   setLogs("Your new Semaphore identity was just created 🎉");
-  // }, []);
+  useEffect(() => {
+    const identityString = localStorage.getItem("identity");
+    if (identityString) {
+      const _identity = new Identity(identityString);
+      setIdentity(_identity);
+      console.log("Your Semaphore identity was retrieved from the browser cache 👌🏽");
+      setModalMode("joinGroup");
+    } else {
+      console.log("Create your Semaphore identity 👆🏽");
+    }
+  }, []);
 
   return (
     <Layout>
@@ -59,25 +87,16 @@ const EventDetailPage = ({ event }: EventDetailPageProps) => {
         <button
           type="button"
           className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl"
-          onClick={() => {
-            // check semaphore identity
-            let isIdentityCreated = false;
-            const identityString = localStorage.getItem("identity");
-            if (identityString) {
-              const _identity = new Identity(identityString);
-              setIdentity(_identity);
-              console.log("Your Semaphore identity was retrieved from the browser cache 👌🏽");
-              isIdentityCreated = true;
+          onClick={async () => {
+            if (identity) {
               setModalMode("joinGroup");
-            } else {
-              console.log("Create your Semaphore identity 👆🏽");
+              const members = await semaphore.getGroupMembers(event.id);
+              setAnonymousLevel(members.length);
+              const result = members.some((member) => member == identity.commitment.toString());
+              if (result) {
+                setModalMode("sendReview");
+              }
             }
-
-            // check if the member joined the group
-            let isJoinedGroup = false;
-            if (isIdentityCreated) {
-            }
-
             setIsModalOpen(true);
           }}
         >
@@ -124,17 +143,45 @@ const EventDetailPage = ({ event }: EventDetailPageProps) => {
               type="text"
               className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 block w-full sm:text-sm border rounded-md py-3 px-2 mb-4"
               placeholder="123790"
+              onChange={(e) => setTokenId(e.target.value)}
             />
-
-            <button
-              type="button"
-              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl"
-              onClick={() => {
-                setModalMode("sendReview");
-              }}
-            >
-              Join
-            </button>
+            {!isConnected && (
+              <button
+                type="button"
+                className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl"
+                onClick={() => {
+                  if (!openConnectModal) {
+                    return;
+                  }
+                  openConnectModal();
+                }}
+              >
+                Connect Wallet
+              </button>
+            )}
+            {isConnected && deployments && signer && (
+              <>
+                <button
+                  type="button"
+                  className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl"
+                  onClick={async () => {
+                    const contract = new ethers.Contract(
+                      deployments.verifiedAnonymous,
+                      VerifiedAnonymousJson.abi,
+                      signer
+                    );
+                    const tx = await contract.verifyAndJoinEvent(identity.commitment.toString(), tokenId);
+                    console.log("verifyAndJoinEvent tx sent", tx.hash);
+                    await tx.wait();
+                    const members = await semaphore.getGroupMembers(event.id);
+                    setAnonymousLevel(members.length);
+                    setModalMode("sendReview");
+                  }}
+                >
+                  Join
+                </button>
+              </>
+            )}
           </>
         )}
         {modalMode === "sendReview" && identity && (
@@ -146,6 +193,8 @@ const EventDetailPage = ({ event }: EventDetailPageProps) => {
               <p className="mb-1">Nullifier: {truncateString(identity.nullifier.toString(), 16)}</p>
               <p className="mb-1">Commitment: {truncateString(identity.commitment.toString(), 16)}</p>
             </div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Anonymous level:</label>
+            <p className="mb-4 text-xs">{anonymousLevel}</p>
             <form className="w-full max-w-2xl mx-auto">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Leave your verified & anonymous review:
@@ -153,19 +202,58 @@ const EventDetailPage = ({ event }: EventDetailPageProps) => {
               <textarea
                 className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 block w-full sm:text-sm border rounded-md py-3 px-2"
                 rows={3}
+                onChange={(e) => setReview(e.target.value)}
               />
               <div className="mt-4">
-                <button
-                  type="button"
-                  className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl"
-                  onClick={() => {
-                    // check semaphore identity
-                    // check if the member joined the group
-                    setIsModalOpen(false);
-                  }}
-                >
-                  Send
-                </button>
+                {!isConnected && (
+                  <button
+                    type="button"
+                    className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl"
+                    onClick={() => {
+                      if (!openConnectModal) {
+                        return;
+                      }
+                      openConnectModal();
+                    }}
+                  >
+                    Connect Wallet
+                  </button>
+                )}
+                {isConnected && deployments && signer && (
+                  <button
+                    type="button"
+                    className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl"
+                    onClick={async () => {
+                      const contract = new ethers.Contract(
+                        deployments.verifiedAnonymous,
+                        VerifiedAnonymousJson.abi,
+                        signer
+                      );
+
+                      const members = await semaphore.getGroupMembers(event.id);
+                      const group = new Group(event.id);
+                      group.addMembers(members);
+
+                      const fullProof = await generateProof(identity, group, event.id, review, {
+                        wasmFilePath,
+                        zkeyFilePath,
+                      });
+
+                      const tx = contract.sendReview(
+                        event.id,
+                        ethers.utils.formatBytes32String(review),
+                        fullProof.merkleTreeRoot,
+                        fullProof.nullifierHash,
+                        fullProof.proof
+                      );
+                      console.log("sendReview sent", tx.hash);
+                      await tx.wait();
+                      setIsModalOpen(false);
+                    }}
+                  >
+                    Send
+                  </button>
+                )}
               </div>
             </form>
           </>

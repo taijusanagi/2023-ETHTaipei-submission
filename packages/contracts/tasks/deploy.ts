@@ -25,11 +25,12 @@ task("deploy", "Deploy a Feedback contract")
         console.log("XPOAP has been deployed to:", xpoapAddress);
       }
 
-      // #1 of hardhat node default accounts
+      // #1 of hardhat node default accounts for demo
       const testXPOAPHolderAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
+
+      // this value is used for local integration testing
       const testGroupId = "1";
       const testTokenId = "1";
-
       await xpoapContract.setOwnerOf(testGroupId, testXPOAPHolderAddress);
       await xpoapContract.setTokenEvent(testTokenId, testGroupId);
     }

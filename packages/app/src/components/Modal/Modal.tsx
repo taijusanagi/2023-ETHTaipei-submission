@@ -11,7 +11,7 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-opacity-50 bg-black flex items-center justify-center">
-      <div className="bg-white p-6 mx-4 w-full mx-auto md:max-w-lg rounded-xl shadow-lg relative">
+      <div className="bg-white p-6 mx-2 w-full mx-auto md:max-w-lg rounded-xl shadow-lg relative">
         <button
           className="absolute top-2 right-2 text-gray-500 hover:text-gray-600 focus:outline-none"
           onClick={onClose}
