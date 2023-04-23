@@ -16,28 +16,18 @@ import VerifiedAnonymousJson from "../../../../contracts/build/contracts/contrac
 import { ethers } from "ethers";
 import { useSigner } from "wagmi";
 import { Group } from "@semaphore-protocol/group";
-import { generateProof } from "@semaphore-protocol/proof";
+
+import { useNetwork } from "@/hooks/useNetwork";
 interface EventDetailPageProps {
   event: Event;
 }
 
-const reviews = [
-  {
-    text: "test review goes here",
-  },
-  {
-    text: "demo review goes here",
-  },
-];
-
 const semaphoreContract = deploymentsJson.localhost.semaphore;
-
-const wasmFilePath = "../../../../contracts/build/snark-artifacts/semaphore.wasm";
-const zkeyFilePath = "../../../../contracts/build/snark-artifacts/semaphore.zkey";
 
 const EventDetailPage = ({ event }: EventDetailPageProps) => {
   const { openConnectModal } = useConnectModal();
   const { isConnected } = useIsConnected();
+  const { network } = useNetwork();
   const { deployments } = useDeployments();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,6 +39,8 @@ const EventDetailPage = ({ event }: EventDetailPageProps) => {
   const [tokenId, setTokenId] = useState("");
   const [review, setReview] = useState("");
   const [anonymousLevel, setAnonymousLevel] = useState(0);
+
+  const [reviews, setReviews] = useState([]);
 
   const semaphore = new SemaphoreEthers("http://localhost:8545", {
     address: semaphoreContract,
@@ -66,6 +58,14 @@ const EventDetailPage = ({ event }: EventDetailPageProps) => {
     }
   }, []);
 
+  useEffect(() => {
+    semaphore.getGroupVerifiedProofs(event.id).then((proofs) => {
+      setReviews(
+        proofs.map(({ signal }: any) => ethers.utils.parseBytes32String(ethers.BigNumber.from(signal).toHexString()))
+      );
+    });
+  }, []);
+
   return (
     <Layout>
       <div className="mb-8">
@@ -75,7 +75,7 @@ const EventDetailPage = ({ event }: EventDetailPageProps) => {
         <p className="block text-sm font-medium text-gray-700 mb-2">Verified Anonymous Reviews:</p>
         <div className="mb-8">
           {reviews.length === 0 && <p>No comments yet.</p>}
-          {reviews.map(({ text }, i) => (
+          {reviews.map((text, i) => (
             <div key={i} className="border-t border-gray-200 pt-4 mt-4 flex">
               <img src={generateGravatarUrl(text)} alt={text} className="w-12 h-12 rounded-xl object-cover mr-4" />
               <div>
@@ -234,12 +234,27 @@ const EventDetailPage = ({ event }: EventDetailPageProps) => {
                       const group = new Group(event.id);
                       group.addMembers(members);
 
-                      const fullProof = await generateProof(identity, group, event.id, review, {
-                        wasmFilePath,
-                        zkeyFilePath,
-                      });
+                      const bytes32StringReview = ethers.utils.formatBytes32String(review);
+                      const options = {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          network,
+                          identityString: identity.toString(),
+                          groupId: event.id,
+                          members,
+                          bytes32StringReview,
+                        }),
+                      };
 
-                      const tx = contract.sendReview(
+                      console.log(window.origin);
+                      const { fullProof } = await fetch(`${window.origin}/api/proof`, options).then((res) =>
+                        res.json()
+                      );
+                      console.log("fullProof", fullProof);
+                      const tx = await contract.sendReview(
                         event.id,
                         ethers.utils.formatBytes32String(review),
                         fullProof.merkleTreeRoot,
