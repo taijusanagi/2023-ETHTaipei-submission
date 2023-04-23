@@ -4,7 +4,7 @@ Verified reviews, preserved privacy.
 
 ![banner](./packages/app/public/banner.png)
 
-## Submission
+## Assets
 
 ### Live App
 
@@ -12,15 +12,19 @@ https://verified-anonymous.vercel.app/
 
 ### Demo Video
 
-TBD
+https://youtu.be/V_sJ4fTZAnk
 
 ### Pitch Deck
 
 https://docs.google.com/presentation/d/1qPRk-fP52QXpEG-6EvGmDNyGn5eiyEdVi29xm45Z-30/edit?usp=sharing
 
-## Description
+## Project Description
 
 Verified Anonymous provides verification with POAP and protects user privacy with Semaphore.
+
+### Source Code
+
+https://github.com/taijusanagi/verified-anonymous
 
 ### Benefit
 
@@ -35,7 +39,7 @@ This approach offers the following key benefits:
 
 - Read honest reviews from verified users, providing greater trust and confidence in the feedback
 
-### How it works
+### How It Works
 
 ![how-it-works](./docs/how-it-works.png)
 
@@ -44,6 +48,10 @@ This approach offers the following key benefits:
 
 ## Refecence
 
+### Deployed Contracts
+
+https://github.com/taijusanagi/verified-anonymous/blob/main/packages/contracts/deployments.json
+
 ### Tested POAP
 
-https://app.poap.xyz/token/6361720
+https://poap.gallery/event/123790

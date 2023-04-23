@@ -1,8 +1,8 @@
 {
   "localhost": {
-    "semaphore": "0xD5ac451B0c50B9476107823Af206eD814a2e2580",
-    "xpoap": "0xF8e31cb472bc70500f08Cd84917E5A1912Ec8397",
-    "verifiedAnonymous": "0x34B40BA116d5Dec75548a9e9A8f15411461E8c70"
+    "semaphore": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+    "xpoap": "0x5bf5b11053e734690269C6B9D438F8C9d48F528A",
+    "verifiedAnonymous": "0xab16A69A5a8c12C732e0DEFF4BE56A70bb64c926"
   },
   "gnosis": { "semaphore": "", "xpoap": "", "verifiedAnonymous": "" }
 }
