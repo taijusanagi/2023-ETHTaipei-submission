@@ -10,6 +10,8 @@ Verified reviews, preserved privacy.
 
 https://verified-anonymous.vercel.app/
 
+The Demo is only works on local network, see contracts package to run local setup.
+
 ### Demo Video
 
 https://youtu.be/V_sJ4fTZAnk
